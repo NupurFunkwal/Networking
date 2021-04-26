@@ -1,0 +1,29 @@
+READ_ME
+
+There are 2 .c files: server.c and client.c
+
+1) Compilation of server.c
+
+	gcc server.c -o server -lpthread
+
+2) Execution of server.c ( here 8081 is the post number)
+
+	./server 8081
+
+3) Compilation of client.c
+
+	gcc client.c -o client
+
+4) Execution of client ( enter IP and port number as command line input)
+
+	./client 127.0.0.1 8081
+
+
+Some general points to keep in mind for execution:
+
+-> 	Total 4 clients can connect at a time to the server
+-> 	For identification purpose, each client has an id which is displayed along with the message in the server
+-> 	The id can be reused for a new client if that particular client exits
+->	The clients can send their text in any order
+->	The server will respond to the client in first-come-first server basis. So if 2 clients have sent their text to the server, server will first take input for the first client which sent its message.
+->	Any client above the limit will be made to exit
