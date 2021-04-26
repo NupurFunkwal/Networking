@@ -52,7 +52,7 @@ The maximum size of the file is 1Kbytes.
 2. The decryption program accepts private key, name of the encrypted file, and name of the decrypted file as command line input parameters. It decrypts the file and stores it as the given name of the output file.
 
 
-### Lab9
+### Lab10
 
 There are two clients and a server in the application. The two clients communicate privately with each other via the server. When any client sends an encrypted message, the message and its decryption are displayed in the other client.
 
