@@ -3,7 +3,7 @@ Solved Networking Problems
 
 Contents:
 
-##Lab5
+## Lab5
 
 Develop a TCP-based server and client using C. The single client requests data from a file on the server. The server opens the file and sends data back to the client.
 Given: The server has few text files files in its present working directory. The client and server will work in separate directories.
