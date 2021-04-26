@@ -12,8 +12,6 @@ int decrylen;
 char * encry_path;
 char * decry_path;
 
-// public key file & private key file
-//char * pub_key="public.pem";
 char * priv_key;
 
 // encrypt & decrypt file function
@@ -25,20 +23,6 @@ FILE * dcyfopen(const char * path, const char * mode);
 // print decrypted codes
 int myprint(char * path,char * mode);
 
-/*FILE * ecyfopen(const char * path, const char * mode)
-{
-        FILE * fp_src;
-        fp_src=fopen(path,"r");
-        // encrypt source file & store the encrypted codes into a new file
-        encryptf(fp_src,pub_key,encry_path);
-
-        // open encrypted file, & return the file pointer
-        FILE* encyfp=fopen(encry_path,mode);
-        return encyfp;
-}
-
-*/
-
 FILE * dcyfopen(const char * path, const char * mode)
 {
         FILE * fp_encry;
@@ -49,67 +33,6 @@ FILE * dcyfopen(const char * path, const char * mode)
         FILE* decryfp=fopen(decry_path,mode);
         return decryfp;
 }
-
-/*
-int encryptf(FILE * fp,char * pub_key,char * encry_path)
-{
-        //read file to str pointer
-        char * plain;
-        int fsize;
-        fseek(fp,0,SEEK_END);
-        fsize=ftell(fp);
-        fseek(fp,0,SEEK_SET);
-        plain=(char *)malloc(fsize * sizeof(char));
-        fread(plain,sizeof(char),fsize,fp);
-//        printf("file size is:\n%d\n",fsize);
-//        printf("Source is:\n%s\n",plain);
-//        printf("strlen is: \n%d\n",strlen(plain));
-        fclose(fp);
-
-        // used to store encrypted file
-        char encrypted[1024];
-
-        // -------------------------------------------------------
-        // use public key to encrypt plain text
-        // -------------------------------------------------------
-        // open public key file
-        FILE* pub_fp=fopen(pub_key,"r");
-        if(pub_fp==NULL){
-                printf("failed to open pub_key file %s!\n", pub_key);
-                return -1;
-         }
-
-        // read public key from file
-        RSA* rsa1=PEM_read_RSA_PUBKEY(pub_fp, NULL, NULL, NULL);
-        if(rsa1==NULL){
-                printf("unable to read public key!\n");
-                return -1;
-        }
-
-        if(strlen(plain)>=RSA_size(rsa1)-41){
-                printf("failed to encrypt\n");
-                return -1;
-        }
-        fclose(pub_fp);
-
-        // use public key to encrypt 
-        encrylen=RSA_public_encrypt(fsize, plain, encrypted, rsa1, RSA_PKCS1_PADDING);
-        if(encrylen==-1 ){
-                printf("failed to encrypt\n");
-                return -1;
-        }
-
-//        printf("in encryptf func, encrylen is:\n%d\n",encrylen);
-
-        // output encrypted data to original file
-        FILE* ffp=fopen(encry_path,"w");
-        if(ffp){
-             fwrite(encrypted,encrylen,1,ffp);
-             fclose(ffp);
-        }
-}
-
-*/
 
 int decryptf(FILE * fp,char * priv_key,char * decry_path)
 {
@@ -147,11 +70,6 @@ int decryptf(FILE * fp,char * priv_key,char * decry_path)
 
     	fclose(priv_fp);
         
-//        printf("in decryptf func, decrylen is:\n%d\n",decrylen);
-
-    	// output decrypted plain text
-//        printf("in decryptf func, decrypted string is \n%s\n",decrypted);
-
         // output decrypted data to a new file
         FILE* ffp=fopen(decry_path,"w");
         if(ffp){
@@ -181,14 +99,11 @@ int main(int argc, char** argv)		// private key, filename, decrypt file
 	decry_path = (char *) argv[3];
 	priv_key = (char *) argv[1];
 
-
-        //encry_fp=ecyfopen("nupur.txt","r");
 	fseek(encry_fp,0,SEEK_END);
         int fsize=ftell(encry_fp);
 	encrylen = fsize;
         ecypted_code=(char *)malloc(encrylen * sizeof(char));
         fread(ecypted_code,encrylen,1,encry_fp);
-        //printf("output encrypted code:\n%s\n",ecypted_code);
 
         myprint(argv[2],"r");
         return 1;
