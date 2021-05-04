@@ -25,12 +25,6 @@ void * socketThread(void *arg)
 
 		// read the message from client which is the cypher text
 		read(sockfd, buff, sizeof(buff)); 
-
-		//printf("The cypher text is: %s\n", buff);
-
-		/*if(strcmp(buff,"")==0){
-			continue;
-		}*/
 			
 		//sending exit message to other client
 		if(strcmp(buff,"exit")==0){
